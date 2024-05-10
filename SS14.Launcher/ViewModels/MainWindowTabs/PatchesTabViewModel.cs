@@ -63,6 +63,7 @@ namespace SS14.Launcher.ViewModels.MainWindowTabs
 
         private void LoadPatchList<T>(List<T> patches, ICollection<T> patchList, string patchName) where T : IPatch
         {
+            patchList.Clear();
             foreach (T patch in patches.Where(patch => !patchList.Any(r => r.Equals(patch))))
             {
                 patchList.Add(patch);
