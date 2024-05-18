@@ -247,6 +247,8 @@
             <TextBlock VerticalAlignment="Center" TextWrapping="Wrap"
                        Text="Dumps everything client facing off a server and disables itself."
                        Margin="8" />
+            <Button Content="Open dumps directory" DockPanel.Dock="Bottom" HorizontalAlignment="Left"
+                    Command="{Binding OpenDumpsDirectory}"/>
 
             <TextBlock Margin="4, 0" Text="Backports" Classes="NanoHeadingMedium" />
             <CheckBox VerticalAlignment="Center" Margin="4" IsChecked="{Binding Backports}">Enable backports</CheckBox>

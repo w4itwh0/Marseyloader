@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -505,6 +506,17 @@ public class OptionsTabViewModel : MainWindowTabViewModel, INotifyPropertyChange
         {
             UseShellExecute = true,
             FileName = LauncherPaths.DirLogs
+        });
+    }
+    public void OpenDumpsDirectory()
+    {
+        Process.Start(new ProcessStartInfo
+        {
+            UseShellExecute = true,
+            FileName = Path.Combine(
+                Path.GetDirectoryName(
+                    System.Reflection.Assembly.GetExecutingAssembly().Location)!
+                    .Replace("SS14.Launcher", "SS14.Loader"), "Dumper/") // TODO: fix cringe later
         });
     }
 
