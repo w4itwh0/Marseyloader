@@ -513,10 +513,7 @@ public class OptionsTabViewModel : MainWindowTabViewModel, INotifyPropertyChange
         Process.Start(new ProcessStartInfo
         {
             UseShellExecute = true,
-            FileName = Path.Combine(
-                Path.GetDirectoryName(
-                    System.Reflection.Assembly.GetExecutingAssembly().Location)!
-                    .Replace("SS14.Launcher", "SS14.Loader"), "Dumper/") // TODO: fix cringe later
+            FileName = Path.Combine(MarseyVars.MarseyFolder, "Dumper/") // TODO: make this configurable, also replace `MarseyVars.MarseyFolder` mess with own var
         });
     }
 
