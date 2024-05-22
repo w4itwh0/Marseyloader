@@ -91,7 +91,7 @@
               <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" TextWrapping="NoWrap"
                          Text="Set your username below. This username will be shown in the discord rich presence activity when hovering on the big icon."
                          Margin="8"/>
-              <TextBox Grid.Row="1" Grid.Column="0" Width="600" MaxWidth="1000" HorizontalAlignment="Left" x:Name="RPCUsernameTextBox" VerticalAlignment="Center" Margin="4" Text="{Binding RPCUsername}"/>
+              <TextBox Grid.Row="1" Grid.Column="0" Width="600" MaxWidth="1000" HorizontalAlignment="Left" x:Name="RPCUsernameTextBox" VerticalAlignment="Center" Margin="4" Text="{Binding RPCUsername, Mode=TwoWay}" IsEnabled="True" IsReadOnly="False"/>
               <Button Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Content="Set username" Command="{Binding SetRPCUsernameCommand}" VerticalAlignment="Center" Margin="4"/>
             </Grid>
 
@@ -115,7 +115,8 @@
                  <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" TextWrapping="NoWrap"
                             Text="Change your HWID. Can be set to be empty or any hexadecimal string."
                             Margin="8"/>
-                 <TextBox Grid.Row="1" Grid.Column="0" Width="600" MaxWidth="1000" HorizontalAlignment="Left" x:Name="HWIdTextBox" VerticalAlignment="Center" Margin="4" Text="{Binding HWIdString}"/>
+                 <TextBox Grid.Row="1" Grid.Column="0" Width="600" MaxWidth="1000" HorizontalAlignment="Left" BorderBrush="{Binding HWIDTextBoxBorderBrush}"
+                          x:Name="HWIdTextBox" VerticalAlignment="Center" Margin="4" Text="{Binding HWIdString, Mode=TwoWay}"/>
                  <Button Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Content="Set HWID" Command="{Binding SetHWIdCommand}" VerticalAlignment="Center" Margin="4"/>
                  <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Content="Generate random" Command="{Binding GenHWIdCommand}" VerticalAlignment="Center" Margin="4"/>
              </Grid>
@@ -182,6 +183,8 @@
         <DockPanel>
           <StackPanel Orientation="Vertical">
             <TextBlock Margin="4, 0" Text="Game" Classes="NanoHeadingMedium" />
+            <Button Content="Open log directory" DockPanel.Dock="Bottom" HorizontalAlignment="Left"
+                    Command="{Binding OpenLogDirectory}"/>
             <CheckBox VerticalAlignment="Center" Margin="4" IsChecked="{Binding LogClient}">Log Client</CheckBox>
             <TextBlock VerticalAlignment="Center" TextWrapping="Wrap"
                        Text="Enables logging of any game client output. Useful for developers."
@@ -197,18 +200,24 @@
                        Text="For when the developers are *very* stumped with your problem. (requires launcher restart)"
                        Margin="8" />
 
-            <Button Content="Open log directory" DockPanel.Dock="Bottom" HorizontalAlignment="Left"
-                    Command="{Binding OpenLogDirectory}"/>
-
-            <TextBlock Margin="4, 0" Text="Patcher" Classes="NanoHeadingMedium" />
             <CheckBox VerticalAlignment="Center" Margin="4" IsChecked="{Binding LogPatches}">Log Patcher</CheckBox>
             <TextBlock VerticalAlignment="Center" TextWrapping="Wrap"
                        Text="Write MarseyLogger output to log."
                        Margin="8" />
 
+            <CheckBox VerticalAlignment="Center" Margin="4" IsChecked="{Binding LogLauncherPatcher}">Enable launcher-patcher logging</CheckBox>
+            <TextBlock VerticalAlignment="Center" TextWrapping="Wrap"
+                       Text="Write MarseyLogger output to launcher's stdout."
+                       Margin="8" />
+
             <CheckBox VerticalAlignment="Center" Margin="4" IsChecked="{Binding LogLoaderDebug}">Enable Loader Debug Logs</CheckBox>
             <TextBlock VerticalAlignment="Center" TextWrapping="Wrap"
                        Text="Enable harmony debug mode, outputting IL code to desktop and providing marsey debug logs."
+                       Margin="8" />
+
+            <CheckBox VerticalAlignment="Center" Margin="4" IsVisible="{Binding !HideDebugKnobs}" IsChecked="{Binding LogTrace}">Log Trace MarseyLogger messages</CheckBox>
+            <TextBlock VerticalAlignment="Center" TextWrapping="Wrap"
+                       Text="Write MarseyLogger trace logs to stdout."
                        Margin="8" />
 
             <CheckBox VerticalAlignment="Center" Margin="4" IsChecked="{Binding SeparateLogging}">Separate Game/Patcher Logs</CheckBox>
