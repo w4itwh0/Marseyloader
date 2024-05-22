@@ -11,6 +11,8 @@ SS14.Launcher/FodyWeavers.xsd
 Marsey/Mods/
 Marsey/ResourcePacks/
 Marsey/Dumper
+Marsey/.vs/
+Marsey/Marsey.sln
 
 !PublishFiles/Space Station 14 Launcher.app/Contents/Resources/bin/
 
