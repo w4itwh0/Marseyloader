@@ -13,4 +13,11 @@
         <PackageReference Include="Newtonsoft.Json" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Compile Remove="Mods/**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="Dumper/**" />
+    </ItemGroup>
 </Project>
