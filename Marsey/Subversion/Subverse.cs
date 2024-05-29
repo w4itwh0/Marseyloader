@@ -4,6 +4,8 @@ using Marsey.Game.Misc;
 using Marsey.Handbreak;
 using Marsey.Misc;
 using Marsey.PatchAssembly;
+using Marsey.Stealthsey;
+using Marsey.Stealthsey.Reflection;
 
 namespace Marsey.Subversion;
 
@@ -29,6 +31,7 @@ public static class Subverse
     /// Patches subverter ahead of everything else
     /// This is done as we attach to the assembly loading function
     /// </summary>
+    [HideLevelRestriction(HideLevel.Unconditional)]
     public static void PatchSubverter()
     {
 
@@ -61,6 +64,7 @@ public static class Subverse
             Assembly subverterAssembly = Assembly.LoadFrom(path);
             MarseyLogger.Log(MarseyLogger.LogType.DEBG, "Subversion", $"Sideloading {path}");
             AssemblyFieldHandler.InitLogger(subverterAssembly, subverterAssembly.FullName);
+            Sedition.InitSedition(subverterAssembly, subverterAssembly.FullName);
 
             loadGameAssemblyMethod.Invoke(__instance, new object[] { subverterAssembly });
 
@@ -69,8 +73,6 @@ public static class Subverse
             {
                 Doorbreak.Enter(entryMethod);
             }
-
-            Subverter.Hide(subverterAssembly);
         }
     }
 
