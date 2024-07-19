@@ -60,7 +60,7 @@ public static class Hidesey
 {
     private static List<Assembly> _hideseys = new List<Assembly>();
     private static bool _initialized;
-    private static bool _caching;
+    internal static bool caching;
 
     /// <summary>
     /// Starts Hidesey. Patches GetAssemblies, GetReferencedAssemblies and hides Harmony from assembly list.
@@ -120,6 +120,7 @@ public static class Hidesey
     /// </summary>
     public static void PostLoad()
     {
+        Veil.Patch();
         HWID.Force();
         DiscordRPC.Patch();
 
@@ -141,8 +142,8 @@ public static class Hidesey
 
     private static void ToggleCaching()
     {
-        MarseyLogger.Log(MarseyLogger.LogType.DEBG, $"Caching is set to {!_caching}");
-        _caching = !_caching;
+        MarseyLogger.Log(MarseyLogger.LogType.DEBG, $"Caching is set to {!caching}");
+        caching = !caching;
     }
 
     /// <summary>
@@ -182,7 +183,7 @@ public static class Hidesey
     }
 
     /// <summary>
-    /// Undermines system functions, hides what doesnt belong from view
+    /// Undermines system functions, hides what doesn't belong from view
     /// </summary>
     /// <exception cref="HideseyException">Thrown if ThrowOnFail is true and any of the patches fails to apply</exception>
     private static void Perjurize()
@@ -258,7 +259,7 @@ public static class Hidesey
     public static Type[] LyingTyper(Type[] original)
     {
         IEnumerable<Type> hiddentypes = Facade.GetTypes();
-        if (!_caching)
+        if (!caching)
             return original.Except(hiddentypes).ToArray();
 
         Type[] cached = Facade.Cached;
