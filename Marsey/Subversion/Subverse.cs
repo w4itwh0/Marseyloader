@@ -64,9 +64,6 @@ public static class Subverse
             Assembly subverterAssembly = Assembly.LoadFrom(path);
             MarseyLogger.Log(MarseyLogger.LogType.DEBG, "Subversion", $"Sideloading {path}");
             AssemblyFieldHandler.InitLogger(subverterAssembly, subverterAssembly.FullName);
-
-            // Stealthsey methods
-            Veil.Hide(subverterAssembly);
             Sedition.InitSedition(subverterAssembly, subverterAssembly.FullName);
 
             loadGameAssemblyMethod.Invoke(__instance, new object[] { subverterAssembly });
@@ -74,7 +71,7 @@ public static class Subverse
             MethodInfo? entryMethod = CheckEntry(subverterAssembly);
             if (entryMethod != null)
             {
-                Doorbreak.Enter(entryMethod);
+                Doorbreak.Enter(entryMethod, threading: false);
             }
         }
     }
