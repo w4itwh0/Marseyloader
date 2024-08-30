@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using Avalonia;
@@ -52,8 +53,10 @@ public class App : Application
     private void LoadBaseAssets()
     {
         DataManager _cfg = Locator.Current.GetRequiredService<DataManager>();
+        List<string> logoExtensions = new List<string> { ".jpg", ".jpeg", ".png" };
 
-        IEnumerable<Uri> logoUris = AssetLoader.GetAssets(new Uri($"avares://SS14.Launcher/Assets/logos"), null);
+        IEnumerable<Uri> logoUris = AssetLoader.GetAssets(new Uri($"avares://SS14.Launcher/Assets/logos"), null)
+            .Where(x => logoExtensions.Contains(Path.GetExtension(x.OriginalString)));
         Random rand = new Random();
         List<Uri> logolist = new List<System.Uri>(logoUris);
 
